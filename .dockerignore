@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pth
+.git
+.gitignore
+img-example/
+img2/
+notebook/
+*.log
+*.tmp
+*.swp
