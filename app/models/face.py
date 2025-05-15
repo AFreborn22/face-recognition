@@ -16,10 +16,13 @@ def preprocess_image(image: Image.Image, size=(160, 160)):
     return img_array
 
 def detect_faces(image: Image.Image):
-    face, prob = mtcnn(image, return_prob=True)
-    if face is None or prob < 0.9:
-        raise ValueError("No face detected or low confidence")
-    return face
+    try:
+        face, prob = mtcnn(image, return_prob=True)
+        if face is None or prob < 0.9:
+            raise ValueError("No face detected or confidence too low")
+        return face
+    except Exception as e:
+        raise RuntimeError(f"Error during face detection: {e}")
 
 def extract_features(face: torch.Tensor):
     if len(face.shape) == 3:  

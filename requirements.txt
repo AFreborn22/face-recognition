@@ -1,0 +1,10 @@
+facenet_pytorch==2.6.0
+fastapi==0.115.12
+numpy==2.2.5
+onnxruntime==1.22.0
+Pillow==11.2.1
+pydantic==2.11.4
+scipy==1.15.3
+SQLAlchemy==2.0.41
+torch==2.2.2
+uvicorn==0.34.2
