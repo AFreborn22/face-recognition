@@ -10,22 +10,22 @@ router = APIRouter()
 
 @router.get("/api/face", response_model=list[FaceResponse])
 def get_faces():
-    """Retrieve all registered faces from the database."""
+    """Mengambil semua wajah yang terdaftar dari database"""
     faces = get_all_faces()
     if not faces:
-        raise HTTPException(status_code=404, detail="No faces found in the database.")
+        raise HTTPException(status_code=404, detail="Tidak ada wajah yang ditemukan dalam database.")
     return faces
 
 @router.post("/api/face/register")
 async def register_face(name: str = Form(...), file: UploadFile = File(...)):
-    """Register a new face in the database."""
+    """Mendaftarkan wajah baru ke database."""
     if not name or not file:
-        raise HTTPException(status_code=400, detail="Both 'name' and 'file' are required.")
+        raise HTTPException(status_code=400, detail="Field 'nama' maupun 'file' diperlukan.")
     
     try:
         image = Image.open(io.BytesIO(await file.read())).convert("RGB")
     except Exception:
-        raise HTTPException(status_code=400, detail="Invalid image file.")
+        raise HTTPException(status_code=400, detail="File gambar tidak valid.")
     
     try:
         embedding = detect_and_extract_features(image)
@@ -40,12 +40,12 @@ async def register_face(name: str = Form(...), file: UploadFile = File(...)):
 
 @router.post("/api/face/recognize")
 async def recognize_face(file: UploadFile = File(...)):
-    """Recognize a face by comparing it with registered faces in the database."""
+    """Mengenali wajah dengan membandingkannya dengan wajah yang terdaftar dalam database."""
     # Read and validate the image
     try:
         image = Image.open(io.BytesIO(await file.read())).convert("RGB")
     except Exception:
-        raise HTTPException(status_code=400, detail="Invalid image file.")
+        raise HTTPException(status_code=400, detail="File gambar tidak valid.")
     
     # Extract embedding
     try:
@@ -58,23 +58,23 @@ async def recognize_face(file: UploadFile = File(...)):
     # Retrieve all faces from the database
     faces_db = get_all_faces()
     if not faces_db:
-        raise HTTPException(status_code=404, detail="No faces registered in the database.")
+        raise HTTPException(status_code=404, detail="Tidak ada wajah yang terdaftar dalam database")
     
     # Compare embeddings
     for face in faces_db:
         db_embedding = get_embedding(face["id"])
         if db_embedding.shape[0] != 512:
-            raise HTTPException(status_code=500, detail=f"Invalid embedding dimension in database: {db_embedding.shape}.")
+            raise HTTPException(status_code=500, detail=f"Dimensi embedding yang tidak valid dalam database: {db_embedding.shape}.")
         
         similarity = 1 - cosine(embedding, db_embedding)
         if similarity > 0.9:  
             return {"id": face["id"], "name": face["name"]}
     
-    raise HTTPException(status_code=404, detail="No match found.")
+    raise HTTPException(status_code=404, detail="Tidak ditemukan kecocokan")
 
 @router.delete("/api/face/{id}")
 def delete_face_endpoint(id: int):
-    """Delete a face from the database by ID."""
+    """Menghapus wajah dari basis data berdasarkan ID."""
     if delete_face(id):
-        return {"message": "Face deleted successfully."}
-    raise HTTPException(status_code=404, detail="Face not found.")
+        return {"message": "Wajah berhasil dihapus"}
+    raise HTTPException(status_code=404, detail="Wajah tidak ditemukan")

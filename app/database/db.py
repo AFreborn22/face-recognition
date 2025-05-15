@@ -19,10 +19,10 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 
 def add_face(name: str, embedding: np.ndarray):
-    """Menambahkan wajah ke database."""
+    """Menambahkan wajah ke database"""
     session = Session()
     embedding_bytes = embedding.tobytes()
-    print(f"Embedding length before saving: {len(embedding_bytes)}")
+    print(f"Panjang embedding sebelum di simpan: {len(embedding_bytes)}")
     face = Face(name=name, embedding=embedding_bytes)
     session.add(face)
     session.commit()
@@ -31,7 +31,7 @@ def add_face(name: str, embedding: np.ndarray):
     return face_id
 
 def get_all_faces():
-    """Mendapatkan daftar semua wajah."""
+    """Dapatkan daftar semua wajah"""
     session = Session()
     faces = session.query(Face).all()
     result = [{"id": f.id, "name": f.name} for f in faces]
@@ -39,7 +39,7 @@ def get_all_faces():
     return result
 
 def delete_face(face_id: int):
-    """Menghapus wajah berdasarkan ID."""
+    """Menghapus wajah berdasarkan ID"""
     session = Session()
     face = session.query(Face).filter(Face.id == face_id).first()
     if face:
@@ -51,7 +51,7 @@ def delete_face(face_id: int):
     return False
 
 def get_embedding(face_id: int):
-    """Mendapatkan embedding wajah berdasarkan ID."""
+    """Mendapatkan embedding wajah berdasarkan ID"""
     session = Session()
     face = session.query(Face).filter(Face.id == face_id).first()
     if face:
