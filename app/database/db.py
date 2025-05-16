@@ -2,9 +2,10 @@ from sqlalchemy import create_engine, Column, Integer, String, LargeBinary
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import numpy as np
+import os
 
 # Konfigurasi database
-DATABASE_URL = "postgresql://postgres:root@localhost:5432/face_db"
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:root@db:5432/face_db")
 engine = create_engine(DATABASE_URL)
 Base = declarative_base()
 

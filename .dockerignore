@@ -4,6 +4,8 @@ __pycache__/
 *.pth
 .git
 .gitignore
+.gitattributes
+*.md
 img-example/
 img2/
 notebook/

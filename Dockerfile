@@ -1,11 +1,14 @@
 FROM python:3.11-slim
 
+LABEL maintainer="Akmal Fauzan RA"
+
 WORKDIR /app
 
-
-COPY . /app
+COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
 
 EXPOSE 8000
 
