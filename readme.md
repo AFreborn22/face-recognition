@@ -43,7 +43,7 @@ app/
 
 ## Cara Menjalankan API menggunakan Docker
 
-### Langkah-Langkah menggunakan image docker dari docker hub
+### > Langkah-Langkah menggunakan image docker dari docker hub
 
 1. **Pastikan Docker Desktop Terinstal**  
 
@@ -82,7 +82,7 @@ app/
    docker ps 
    ```
 
-### Langkah-Langkah jika menggunakan docker-compose
+### > Langkah-Langkah jika menggunakan docker-compose
 
 1. **Pastikan Docker Desktop Terinstal**  
 
@@ -123,7 +123,7 @@ app/
 
 ---
 
-## Cara Menggunakan API
+## > Cara Menggunakan API
 
 ### **[GET] /api/face**  
 Mengambil daftar semua wajah yang terdaftar dalam database.
@@ -165,7 +165,7 @@ curl -X DELETE http://localhost:8000/api/face/1
 
 ---
 
-## Cara Menggunakan API jika memakai Postman
+## > Cara Menggunakan API jika memakai Postman
 
 ### 1. Impor Koleksi Postman
 Impor file `facerecognition.postman_collection.json` untuk menguji API. Buka Postman, klik "Import", lalu pilih file JSON tersebut.
