@@ -73,24 +73,28 @@ app/
 
 ## Cara Menjalankan Docker Image dari DockerHub
 
-### Menggunakan Docker Pull
+Kalimat dan perintah bash yang diberikan sudah cukup baik, tetapi ada beberapa hal yang bisa diperbaiki untuk membuatnya lebih jelas dan konsisten, serta memastikan perintah bash berfungsi dengan baik dalam konteks proyek Face Recognition System. Berikut adalah versi yang telah diperbaiki, dengan penjelasan di bawahnya.
 
-Setelah image diunggah ke DockerHub, tarik image dengan perintah berikut. Ganti `<dockerhub_username>/<image_name>` dengan nama pengguna dan nama image di DockerHub.
+---
+
+### **Menggunakan Docker Pull**
+
+Setelah image berhasil diunggah ke Docker Hub, gunakan perintah berikut untuk menarik image:
 
 ```bash
-docker pull <dockerhub_username>/<image_name>
+docker pull afreborn/face-recognition-app:latest
 ```
 
-Jalankan container dengan perintah berikut:
+Untuk menjalankan container, gunakan perintah ini:
 
 ```bash
-docker run -p 8000:8000 <dockerhub_username>/<image_name>
+docker run -d -p 8000:8000 afreborn/face-recognition-app:latest
 ```
 
-Alternatifnya, jika menggunakan Docker Compose:
+Alternatifnya, jika menggunakan Docker Compose untuk menjalankan aplikasi beserta dependensinya (seperti PostgreSQL):
 
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 
 ---
