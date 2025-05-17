@@ -10,6 +10,8 @@ services:
       - DATABASE_URL=postgresql://postgres:root@db:5432/face_db
     depends_on:
       - db
+    restart: always
+    command: ["sh", "-c", "while ! pg_isready -h db -p 5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0 --port 8000"]
 
   db:
     image: postgres:14
