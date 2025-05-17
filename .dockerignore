@@ -8,6 +8,7 @@ __pycache__/
 *.md
 img-example/
 img2/
+*.json
 notebook/
 *.log
 *.tmp

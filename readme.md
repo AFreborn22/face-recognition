@@ -125,7 +125,7 @@ Mencocokkan wajah yang diunggah dengan wajah yang terdaftar dalam database.
 
 #### **Contoh Menggunakan curl**:
 ```bash
-curl -X POST -F "name=Akmal Fauzan" -F "file=@/path/to/your/image.jpg" http://localhost:8000/api/face/recognize
+curl -X POST -F "file=@/path/to/your/image.jpg" http://localhost:8000/api/face/recognize
 ```
 
 ### **[DELETE] /api/face/{id}**  
