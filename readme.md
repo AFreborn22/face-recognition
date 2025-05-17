@@ -43,7 +43,41 @@ app/
 
 ## Cara Menjalankan API menggunakan Docker
 
-### Langkah-Langkah
+### Langkah-Langkah menggunakan image docker dari docker hub
+
+1. **Pastikan Docker Desktop Terinstal**  
+   Pastikan Docker Desktop terinstal di laptop/komputer
+
+2. **Buat network untuk menghubungkan image app dan postgre**
+   Buat jaringan Docker untuk menghubungkan container aplikasi dan PostgreSQL:
+   ```bash
+   docker network create my-network
+   ```
+
+3. **Pull dan Jalankan Container PostgreSQL** 
+   Pull image PostgreSQL, lalu jalankan container
+   ```bash
+   docker pull postgres:14-alpine
+   ```
+   ```bash
+   docker run --name db --network my-network -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=root -e POSTGRES_DB=face_db -p 5432:5432 -d postgres:14-alpine
+   ```
+
+4. **Pull dan Jalankan Container Aplikasi**
+   Pull image aplikasi dari Docker Hub, lalu jalankan container
+   ```bash
+   docker pull afreborn/face-recognition-app:latest 
+   ```
+   ```bash
+   docker run --name face-recognition --network my-network -e DATABASE_URL=postgresql://postgres:root@db:5432/face_db -e DB_HOST=db -e DB_PORT=5432 -e DB_USER=postgres -e DB_PASSWORD=root -e DB_NAME=face_db -p 8000:8000 -d afreborn/face-recognition-app:latest 
+   ```
+
+5. **periksa kontainer yang berjalan**
+   ```bash
+   docker ps 
+   ```
+
+### Langkah-Langkah menggunakan docker-compose
 
 1. **Pastikan Docker Desktop Terinstal**  
    Pastikan Docker Desktop terinstal di laptop/komputer
