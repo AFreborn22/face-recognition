@@ -13,52 +13,22 @@ Proyek ini membangun sistem pengenalan wajah dengan model deep learning, memanfa
 ```
 app/
 ├── api/
-│   └── endpoints.py
+│   └── endpoints.py          # Kode untuk API endpoints (registrasi, pengenalan wajah, penghapusan data)
 ├── database/
-│   └── db.py
+│   └── db.py                # Kode untuk mengelola koneksi dan operasi database
 ├── models/
-│   ├── face.py
-│   ├── facenet_pretrained.onnx
-│   └── schema.py
+│   ├── face.py              # Kode untuk deteksi dan ekstraksi fitur wajah
+│   ├── facenet_pretrained.onnx # Model pre-trained untuk ekstraksi fitur wajah (ONNX format)
+│   └── schema.py            # Skema untuk validasi data
 ├── notebook/
-│   ├── exportToOnnx.ipynb
-│   ├── finetune.ipynb
-├── Dockerfile
-├── requirements.txt
-├── docker-compose.yml
-└── readme.md
+│   ├── exportToOnnx.ipynb   # Notebook untuk mengekspor model ke format ONNX
+│   ├── finetune.ipynb       # Notebook untuk melakukan finetuning model pre-trained
+├── Dockerfile               # File untuk membangun Docker image
+├── requirements.txt         # Daftar dependensi Python yang diperlukan
+├── docker-compose.yml       # File konfigurasi untuk Docker Compose
+├── facerecognition.postman_collection.json    # Postman collection untuk menguji API
+└── readme.md                # Dokumentasi penggunaan aplikasi
 ```
-
-- **app/api/endpoints.py**  
-  Berisi kode REST API untuk menangani permintaan seperti registrasi, pengenalan wajah, dan penghapusan data wajah.
-
-- **app/database/db.py**  
-  Berisi kode untuk mengelola database, termasuk menyimpan dan mengambil data wajah.
-
-- **app/models/face.py**  
-  Berisi kode untuk deteksi wajah dan ekstraksi fitur wajah menggunakan model pre-trained MTCNN dan Facenet.
-
-- **app/models/facenet_pretrained.onnx**  
-  Model pre-trained untuk ekstraksi fitur wajah dalam format ONNX.
-
-- **app/notebook/exportToOnnx.ipynb**  
-  Notebook untuk mengekspor model ke format ONNX.
-
-- **app/notebook/finetune.ipynb**  
-  Notebook untuk melakukan finetuning pada model pre-trained.
-
-- **Dockerfile**  
-  File untuk membuat Docker image.
-
-- **docker-compose.yml**  
-  File untuk mengatur konfigurasi Docker Compose.
-
-- **requirements.txt**  
-  Daftar dependensi yang diperlukan untuk menjalankan aplikasi.
-
-- **readme.md**  
-  Dokumentasi penggunaan aplikasi.
-
 ---
 
 ## Model Pre-trained yang Digunakan
@@ -71,31 +41,41 @@ app/
 
 ---
 
-## Cara Menjalankan Docker Image dari DockerHub
+## Cara Menjalankan API menggunakan Docker
 
-Kalimat dan perintah bash yang diberikan sudah cukup baik, tetapi ada beberapa hal yang bisa diperbaiki untuk membuatnya lebih jelas dan konsisten, serta memastikan perintah bash berfungsi dengan baik dalam konteks proyek Face Recognition System. Berikut adalah versi yang telah diperbaiki, dengan penjelasan di bawahnya.
+### Langkah-Langkah
 
----
+1. **Pastikan Docker Desktop Terinstal**  
+   Pastikan Docker Desktop terinstal di laptop/komputer
 
-### **Menggunakan Docker Pull**
+2. **Kloning Repositori GitHub**  
+   Clone repositori GitHub ini untuk mendapatkan file konfigurasi (`docker-compose.yml`) dan dokumentasi:
+   ```bash
+   git clone https://github.com/AFreborn22/face-recognition.git
+   ```
 
-Setelah image berhasil diunggah ke Docker Hub, gunakan perintah berikut untuk menarik image:
+3. **Masuk ke Direktori Proyek**  
+   Masuk ke direktori proyek:
+   ```bash
+   cd face-recognition
+   ```
 
-```bash
-docker pull afreborn/face-recognition-app:latest
-```
+4. **Inisialisasi Git LFS untuk Mengunduh File Model**  
+   Inisialisasi Git LFS untuk mengunduh file model (`facenet_pretrained.onnx`):
+   ```bash
+   git lfs install
+   git lfs pull
+   ```
+   - File `facenet_pretrained.onnx` di folder `app/models/` diperlukan untuk menjalankan aplikasi secara lokal. File ini dikelola menggunakan Git LFS karena ukurannya besar (>50 MB).
 
-Untuk menjalankan container, gunakan perintah ini:
-
-```bash
-docker run -d -p 8000:8000 afreborn/face-recognition-app:latest
-```
-
-Alternatifnya, jika menggunakan Docker Compose untuk menjalankan aplikasi beserta dependensinya (seperti PostgreSQL):
-
-```bash
-docker-compose up -d
-```
+5. **Jalankan Aplikasi Menggunakan Docker Compose**  
+   Jalankan aplikasi menggunakan Docker Compose:
+   ```bash
+   docker-compose up --build -d
+   ```
+   - Perintah ini akan menjalankan layanan `app` (aplikasi Face Recognition) dan `db` (database PostgreSQL) dalam jaringan yang sama, memastikan koneksi database berfungsi.
+   - Opsi `--build` memastikan image dibangun ulang jika ada perubahan, dan `-d` menjalankan container di latar belakang.
+   - Docker Compose akan secara otomatis menarik image `postgres:14` dari Docker Hub jika belum ada (memerlukan koneksi internet).
 
 ---
 
