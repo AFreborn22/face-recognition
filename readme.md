@@ -119,8 +119,7 @@ curl -X POST -F "name=Akmal Fauzan" -F "file=@/path/to/your/image.jpg" http://lo
 ### **[POST] /api/face/recognize**  
 Mencocokkan wajah yang diunggah dengan wajah yang terdaftar dalam database.
 
-#### **Body (Form Data)**:
-- `name`: Nama orang yang ingin dikenali.  
+#### **Body (Form Data)**: 
 - `file`: Gambar wajah yang akan dikenali.
 
 #### **Contoh Menggunakan curl**:
