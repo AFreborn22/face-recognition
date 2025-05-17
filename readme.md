@@ -46,15 +46,18 @@ app/
 ### Langkah-Langkah menggunakan image docker dari docker hub
 
 1. **Pastikan Docker Desktop Terinstal**  
+
    Pastikan Docker Desktop terinstal di laptop/komputer
 
 2. **Buat network untuk menghubungkan image app dan postgre**
+
    Buat jaringan Docker untuk menghubungkan container aplikasi dan PostgreSQL:
    ```bash
    docker network create my-network
    ```
 
 3. **Pull dan Jalankan Container PostgreSQL** 
+
    Pull image PostgreSQL, lalu jalankan container
    ```bash
    docker pull postgres:14-alpine
@@ -64,6 +67,7 @@ app/
    ```
 
 4. **Pull dan Jalankan Container Aplikasi**
+
    Pull image aplikasi dari Docker Hub, lalu jalankan container
    ```bash
    docker pull afreborn/face-recognition-app:latest 
@@ -73,28 +77,33 @@ app/
    ```
 
 5. **periksa kontainer yang berjalan**
+
    ```bash
    docker ps 
    ```
 
-### Langkah-Langkah menggunakan docker-compose
+### Langkah-Langkah jika menggunakan docker-compose
 
 1. **Pastikan Docker Desktop Terinstal**  
+
    Pastikan Docker Desktop terinstal di laptop/komputer
 
 2. **Kloning Repositori GitHub**  
+
    Clone repositori GitHub ini untuk mendapatkan file konfigurasi (`docker-compose.yml`) dan dokumentasi:
    ```bash
    git clone https://github.com/AFreborn22/face-recognition.git
    ```
 
 3. **Masuk ke Direktori Proyek**  
+
    Masuk ke direktori proyek:
    ```bash
    cd face-recognition
    ```
 
 4. **Inisialisasi Git LFS untuk Mengunduh File Model**  
+
    Inisialisasi Git LFS untuk mengunduh file model (`facenet_pretrained.onnx`):
    ```bash
    git lfs install
@@ -103,6 +112,7 @@ app/
    - File `facenet_pretrained.onnx` di folder `app/models/` diperlukan untuk menjalankan aplikasi secara lokal. File ini dikelola menggunakan Git LFS karena ukurannya besar (>50 MB).
 
 5. **Jalankan Aplikasi Menggunakan Docker Compose**  
+
    Jalankan aplikasi menggunakan Docker Compose:
    ```bash
    docker-compose up --build -d
@@ -155,7 +165,7 @@ curl -X DELETE http://localhost:8000/api/face/1
 
 ---
 
-## Cara Menggunakan Postman
+## Cara Menggunakan API jika memakai Postman
 
 ### 1. Impor Koleksi Postman
 Impor file `facerecognition.postman_collection.json` untuk menguji API. Buka Postman, klik "Import", lalu pilih file JSON tersebut.
