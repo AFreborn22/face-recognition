@@ -36,7 +36,7 @@ app/
   Berisi kode untuk mengelola database, termasuk menyimpan dan mengambil data wajah.
 
 - **app/models/face.py**  
-  Berisi skrip untuk deteksi wajah dan ekstraksi fitur wajah menggunakan model pre-trained MTCNN dan Facenet.
+  Berisi kode untuk deteksi wajah dan ekstraksi fitur wajah menggunakan model pre-trained MTCNN dan Facenet.
 
 - **app/models/facenet_pretrained.onnx**  
   Model pre-trained untuk ekstraksi fitur wajah dalam format ONNX.
